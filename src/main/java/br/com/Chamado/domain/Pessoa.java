@@ -5,16 +5,41 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.Chamado.enuns.Perfil;
 
+@Entity
 public abstract class Pessoa {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
 	protected String nome;
+	
+	@Column(unique = true)
 	protected String cpf;
+	
+	@Column(unique = true)
 	protected String email;
 	protected String senha;
+	
+	/*Informando que é uma coleção e quando der um get do usuario, essa lista vai vir imediatamente junto com usuario*/
+	/*Vai ter uma tabela no banco com o nome perfis*/
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PERFIS")
 	protected Set<Integer> perfis = new HashSet<Integer>();
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
 
 	public Pessoa() {
