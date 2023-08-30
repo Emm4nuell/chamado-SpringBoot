@@ -16,7 +16,7 @@ public class Tecnico extends Pessoa {
 	/*Ignora o campo na hora de chamar*/
 	@JsonIgnore
 	@OneToMany(mappedBy = "tecnico")
-	private List<Chamado> chamados = new ArrayList<Chamado>();
+	private List<Chamados> chamados = new ArrayList<Chamados>();
 
 	public Tecnico() {
 		super();
@@ -30,11 +30,11 @@ public class Tecnico extends Pessoa {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<Chamado> getChamados() {
+	public List<Chamados> getChamados() {
 		return chamados;
 	}
 
-	public void setChamados(List<Chamado> chamados) {
+	public void setChamados(List<Chamados> chamados) {
 		this.chamados = chamados;
 	}
 

@@ -17,7 +17,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Chamado {
+public class Chamados {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,11 +41,11 @@ public class Chamado {
 	@JoinColumn(name = "tecnico_id")
 	private Tecnico tecnico;
 
-	public Chamado() {
+	public Chamados() {
 		super();
 	}
 
-	public Chamado(Long id, Prioridade prioridade, Status status, String titulo, String observacoes, Cliente cliente,
+	public Chamados(Long id, Prioridade prioridade, Status status, String titulo, String observacoes, Cliente cliente,
 			Tecnico tecnico) {
 		super();
 		this.id = id;

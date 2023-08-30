@@ -6,13 +6,16 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.Chamado.enuns.Perfil;
 
 @Entity
 public class Cliente extends Pessoa {
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
-	private List<Chamado> chamados = new ArrayList<Chamado>();
+	private List<Chamados> chamados = new ArrayList<Chamados>();
 
 	public Cliente() {
 		super();
@@ -26,11 +29,11 @@ public class Cliente extends Pessoa {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<Chamado> getChamados() {
+	public List<Chamados> getChamados() {
 		return chamados;
 	}
 
-	public void setChamados(List<Chamado> chamados) {
+	public void setChamados(List<Chamados> chamados) {
 		this.chamados = chamados;
 	}
 
