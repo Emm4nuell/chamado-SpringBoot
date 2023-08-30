@@ -13,7 +13,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 public class TecnicoDto {
 
 	protected Long id;
@@ -26,6 +25,12 @@ public class TecnicoDto {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
 	
+	
+	public TecnicoDto() {
+		super();
+		addPerfis(Perfil.CLIENTE);
+	}
+	
 	public TecnicoDto(Tecnico tec) {
 		this.id = tec.getId();
 		this.nome = tec.getNome();
@@ -34,6 +39,17 @@ public class TecnicoDto {
 		this.senha = tec.getSenha();
 		this.perfis = tec.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 		this.dataCriacao = tec.getDataCriacao();
+		addPerfis(Perfil.CLIENTE);
+	}
+	
+	public Tecnico toTecnico(TecnicoDto dto) {
+		Tecnico tec = new Tecnico(
+				null, 
+				dto.getNome(), 
+				dto.getCpf(), 
+				dto.getEmail(), 
+				dto.getSenha());
+		return tec;
 	}
 	
 	/* Vai mapear a lista de perfis no enum */
@@ -44,4 +60,5 @@ public class TecnicoDto {
 	public void addPerfis(Perfil perfil) {
 		this.perfis.add(perfil.getCodigo());
 	}
+
 }

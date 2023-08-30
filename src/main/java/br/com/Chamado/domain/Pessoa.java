@@ -25,20 +25,23 @@ public abstract class Pessoa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
 	protected String nome;
-	
+
 	@Column(unique = true)
 	protected String cpf;
-	
+
 	@Column(unique = true)
 	protected String email;
 	protected String senha;
-	
-	/*Informando que é uma coleção e quando der um get do usuario, essa lista vai vir imediatamente junto com usuario*/
-	/*Vai ter uma tabela no banco com o nome perfis*/
+
+	/*
+	 * Informando que é uma coleção e quando der um get do usuario, essa lista vai
+	 * vir imediatamente junto com usuario
+	 */
+	/* Vai ter uma tabela no banco com o nome perfis */
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "PERFIS")
 	protected Set<Integer> perfis = new HashSet<Integer>();
-	
+
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
 
