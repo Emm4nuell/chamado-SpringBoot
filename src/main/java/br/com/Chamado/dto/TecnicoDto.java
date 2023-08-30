@@ -5,17 +5,20 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.Chamado.domain.Tecnico;
 import br.com.Chamado.enuns.Perfil;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public class TecnicoDto {
 
 	protected Long id;
+	@NotBlank(message = "Campo Nome é requerido")
 	protected String nome;
 	protected String cpf;
 	protected String email;
