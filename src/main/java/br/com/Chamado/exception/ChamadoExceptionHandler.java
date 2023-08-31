@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -38,6 +39,17 @@ public class ChamadoExceptionHandler {
 		}
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+	
+	@ExceptionHandler(ObjectNotFoundException.class)
+	public ResponseEntity<StandarError> objectNotFoundException(ObjectNotFoundException exception, HttpServletRequest request){
+		StandarError error = new StandarError(
+				LocalDateTime.now(), 
+				HttpStatus.NOT_FOUND.value(), 
+				"Identifiesr exists", 
+				exception.getMessage(), 
+				request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 
 }
