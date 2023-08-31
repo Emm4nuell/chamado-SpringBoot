@@ -1,5 +1,8 @@
 package br.com.Chamado.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +25,13 @@ public class ChamadoController {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ChamadoDto> findById(@PathVariable Long id){
 		
-		Chamados obj = service.findById(id);
-		
+		Chamados obj = service.findById(id);	
 		return ResponseEntity.status(HttpStatus.OK).body(new ChamadoDto(obj));
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<ChamadoDto>> findAll(){
+		List<ChamadoDto> list = service.findAll().stream().map(x -> new ChamadoDto(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(list);
 	}
 }
