@@ -3,6 +3,8 @@ package br.com.Chamado.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +34,16 @@ public class TecnicoService {
 		dto.setId(null);
 		Tecnico tecnico = new Tecnico(dto);
 		return repository.save(tecnico);
+	}
+
+
+	public Tecnico update(Long id, @Valid TecnicoDto dto) {
+		Optional<Tecnico> obj = repository.findById(id);
+		Tecnico tec = new Tecnico(dto);
+		if(obj.isEmpty()) {
+			throw new NullPointerException("Dados não localizado para alteração");
+		}
+		tec.setId(id);
+		return repository.save(tec);
 	}
 }
